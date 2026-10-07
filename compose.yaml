@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nfe
+      POSTGRES_USER: nfe
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes: ["${ROOT:-./data}/db:/var/lib/postgresql/data"]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U nfe -d nfe"], interval: 10s, timeout: 5s, retries: 5}
+    networks: [nfe]
+  api:
+    build: ./apps/api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://nfe:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/nfe
+      OBJECTS_DIR: /var/lib/nfe/objects
+      EXPORTS_DIR: /var/lib/nfe/exports
+      BACKUPS_DIR: /var/lib/nfe/backups
+      STAGING_DIR: /var/lib/nfe/staging
+    volumes:
+      - "${ROOT:-./data}/objects:/var/lib/nfe/objects"
+      - "${ROOT:-./data}/exports:/var/lib/nfe/exports"
+      - "${ROOT:-./data}/backups:/var/lib/nfe/backups"
+      - "${ROOT:-./data}/staging:/var/lib/nfe/staging"
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck: {test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/ready')"], interval: 15s, timeout: 5s, retries: 5}
+    networks: [nfe]
+  worker:
+    build: ./apps/api
+    restart: unless-stopped
+    command: ["python", "-m", "app.worker"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://nfe:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/nfe
+      OBJECTS_DIR: /var/lib/nfe/objects
+      EXPORTS_DIR: /var/lib/nfe/exports
+      BACKUPS_DIR: /var/lib/nfe/backups
+      STAGING_DIR: /var/lib/nfe/staging
+    volumes:
+      - "${ROOT:-./data}/objects:/var/lib/nfe/objects"
+      - "${ROOT:-./data}/exports:/var/lib/nfe/exports"
+      - "${ROOT:-./data}/backups:/var/lib/nfe/backups"
+      - "${ROOT:-./data}/staging:/var/lib/nfe/staging"
+    depends_on: {api: {condition: service_healthy}}
+    networks: [nfe]
+  web:
+    build: ./apps/web
+    restart: unless-stopped
+    ports: ["${WEB_PORT:-8080}:8080"]
+    depends_on: {api: {condition: service_healthy}}
+    networks: [nfe]
+networks: {nfe: {}}

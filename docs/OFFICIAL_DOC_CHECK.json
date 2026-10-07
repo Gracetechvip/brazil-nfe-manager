@@ -1,0 +1,45 @@
+{
+  "checked_on": "2026-10-08",
+  "sources": [
+    {
+      "name": "fastapi",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "name": "sqlalchemy",
+      "url": "https://docs.sqlalchemy.org/en/20/orm/session_transaction.html",
+      "status": 200,
+      "bytes": 109158
+    },
+    {
+      "name": "postgres",
+      "url": "https://www.postgresql.org/docs/16/backup-dump.html",
+      "status": 200,
+      "bytes": 29822
+    },
+    {
+      "name": "react",
+      "url": "https://react.dev/learn",
+      "status": 200,
+      "bytes": 265160
+    },
+    {
+      "name": "vite",
+      "url": "https://vite.dev/guide/",
+      "status": 200,
+      "bytes": 89604
+    },
+    {
+      "name": "nf-e",
+      "url": "https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=BMPFMBoln3w%3D",
+      "error": "HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nFound"
+    },
+    {
+      "name": "cnpj",
+      "url": "https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico",
+      "status": 200,
+      "bytes": 205221
+    }
+  ]
+}

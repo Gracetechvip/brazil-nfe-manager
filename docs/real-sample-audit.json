@@ -1,0 +1,40 @@
+{
+  "source": "redacted-model55-sample.zip",
+  "members_total": 47,
+  "xml_documents": 46,
+  "xml_parse_failures": 0,
+  "models": {
+    "55": 46
+  },
+  "issuers_count": 1,
+  "recipients_count": 2,
+  "issue_date": {
+    "min": "2026-07-04",
+    "max": "2026-07-30",
+    "unique_days": 23
+  },
+  "tpNF": {
+    "1": 46
+  },
+  "finNFe": {
+    "1": 46
+  },
+  "cfop": {
+    "5105": 21,
+    "6105": 25
+  },
+  "issuer_uf": {
+    "SP": 46
+  },
+  "cStat": {
+    "100": 46
+  },
+  "access_key_length": {
+    "44": 46
+  },
+  "amounts_present": 46,
+  "notes": [
+    "Aggregate counts only; no CNPJ, access key, buyer, address, or amount values retained.",
+    "All documents are nfeProc model 55 with cStat 100 in this archive; CFOPs 5105/6105 require business-rule confirmation and are not assumed sales by this audit."
+  ]
+}

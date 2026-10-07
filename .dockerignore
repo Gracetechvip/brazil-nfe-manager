@@ -1,0 +1,16 @@
+.git
+.venv
+.env*
+__pycache__
+*.pyc
+node_modules
+dist
+data
+data-local
+backups
+exports
+staging
+*.db
+*.sqlite
+*.sqlite3
+*.zip

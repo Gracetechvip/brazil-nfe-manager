@@ -1,0 +1,26 @@
+# Ignore local secrets and runtime data
+.env
+.env.*
+!.env.example
+.venv/
+data/
+data-local/
+backups/
+exports/
+staging/
+*.db
+*.sqlite
+*.sqlite3
+*.zip
+*.tar
+*.tar.gz
+**/__pycache__/
+**/.pytest_cache/
+**/node_modules/
+**/dist/
+*.tsbuildinfo
+.coverage
+.ruff_cache/
+.mypy_cache/
+.vscode/
+test-results/
